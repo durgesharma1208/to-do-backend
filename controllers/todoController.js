@@ -13,12 +13,13 @@ export const getTodos = asyncHandler(async (req, res) => {
 export const createTodo = asyncHandler(async (req, res) => {
   const { title, description, priority, category, dueDate } = req.body;
 
-  if (!title) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide a title",
-    });
-  }
+  // No longer need to check for title, validator does it
+  // if (!title) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "Please provide a title",
+  //   });
+  // }
 
   const todo = await Todo.create({
     title,

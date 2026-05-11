@@ -11,7 +11,7 @@ const noteSchema = new mongoose.Schema(
     content: {
       type: String,
       required: [true, "Please provide content"],
-      maxlength: [2000, "Content cannot be more than 2000 characters"],
+      maxlength: [10000, "Content cannot be more than 10000 characters"],
     },
     color: {
       type: String,

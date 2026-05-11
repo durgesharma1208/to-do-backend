@@ -13,12 +13,13 @@ export const getNotes = asyncHandler(async (req, res) => {
 export const createNote = asyncHandler(async (req, res) => {
   const { title, content, color, isImportant } = req.body;
 
-  if (!title || !content) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide title and content",
-    });
-  }
+  // No longer need to check for fields, validator does it
+  // if (!title || !content) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "Please provide title and content",
+  //   });
+  // }
 
   const note = await Note.create({
     title,

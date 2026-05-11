@@ -7,6 +7,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.js";
 import todoRoutes from "./routes/todos.js";
 import notesRoutes from "./routes/notes.js";
+import worklogRoutes from "./routes/worklogs.js";
 import dns from "dns";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
@@ -29,6 +30,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
 app.use("/api/notes", notesRoutes);
+app.use("/api/worklogs", worklogRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Server is running" });
