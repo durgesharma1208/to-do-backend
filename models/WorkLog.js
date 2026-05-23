@@ -8,6 +8,14 @@ const workLogSchema = new mongoose.Schema(
       required: [true, "User ID is required"],
       index: true,
     },
+    // Local date string in YYYY-MM-DD format - PRIMARY field for all date operations
+    dateStr: {
+      type: String,
+      required: [true, "Date string (YYYY-MM-DD) is required"],
+      index: true,
+      match: [/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"],
+    },
+    // Legacy: Date object for backward compatibility (deprecated, use dateStr instead)
     date: {
       type: Date,
       required: [true, "Date is required"],
@@ -31,14 +39,22 @@ const workLogSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    // Wake-up time in HH:MM format (24-hour) - stored only on first log of the day
+    wakeUpTime: {
+      type: String,
+      match: [/^\d{2}:\d{2}$/, "Wake-up time must be in HH:MM format"],
+      default: null,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-// Create compound index for unique slot per date per user
-workLogSchema.index({ userId: 1, date: 1, timeSlot: 1 }, { unique: true });
+// Create compound index for unique slot per date per user (using dateStr as primary)
+workLogSchema.index({ userId: 1, dateStr: 1, timeSlot: 1 }, { unique: true });
+// Legacy index for backward compatibility
+workLogSchema.index({ userId: 1, date: 1, timeSlot: 1 });
 
 const WorkLog = mongoose.model("WorkLog", workLogSchema);
 

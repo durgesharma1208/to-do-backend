@@ -17,11 +17,11 @@ export const validate = (req, res, next) => {
 
 // Worklog validation
 export const worklogValidation = [
-  body("date")
+  body("dateStr")
     .notEmpty()
     .withMessage("Date is required")
-    .isISO8601()
-    .withMessage("Date must be a valid ISO 8601 date"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/)
+    .withMessage("Date must be in YYYY-MM-DD format"),
   body("timeSlot")
     .notEmpty()
     .withMessage("Time slot is required")
