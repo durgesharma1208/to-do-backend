@@ -167,11 +167,12 @@ const runNotificationJob = async () => {
   }
 };
 
-// Schedule cron
 cron.schedule(CRON_SCHEDULE, runNotificationJob, {
   scheduled: true,
   timezone: NOTIFICATION_TIMEZONE,
 });
+
+runNotificationJob();
 
 console.log(
   `Notification cron scheduled: ${CRON_SCHEDULE} (${NOTIFICATION_TIMEZONE})`,
