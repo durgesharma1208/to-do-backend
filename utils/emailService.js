@@ -1,11 +1,8 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || "smtp.gmail.com",
-  port: process.env.EMAIL_PORT || 587,
+  port: parseInt(process.env.EMAIL_PORT || "587", 10),
   secure: false,
   auth: {
     user: process.env.EMAIL_USER,
@@ -14,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendVerificationEmail = async (email, token) => {
-  const verificationLink = `${process.env.CLIENT_URL}/verify-email/${token}`;
+  const verificationLink = `${process.env.FRONTEND_URL}/verify-email/${token}`;
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -51,7 +48,7 @@ export const sendVerificationEmail = async (email, token) => {
 };
 
 export const sendPasswordResetEmail = async (email, token) => {
-  const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
+  const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

@@ -45,15 +45,19 @@ const userSchema = new mongoose.Schema(
       type: Date,
       select: false,
     },
+    fcmToken: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
   if (!this.isModified("password")) {
-    next();
+    return;
   }
 
   const salt = await bcryptjs.genSalt(10);
