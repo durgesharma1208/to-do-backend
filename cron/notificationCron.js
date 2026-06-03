@@ -1,11 +1,11 @@
 import cron from "node-cron";
 import admin, { isFirebaseInitialized } from "../config/firebaseAdmin.js";
 import User from "../models/User.js";
-
+console.log("🔥 notificationCron.js LOADED");
 // Every 30 minutes from 6 AM to 11 PM (India Time)
 const CRON_SCHEDULE =
   process.env.NOTIFICATION_CRON || "0,30 6-23 * * *";
-
+console.log("⏰ Cron tick running");
 const NOTIFICATION_TITLE =
   process.env.NOTIFICATION_TITLE || "Reminder";
 
